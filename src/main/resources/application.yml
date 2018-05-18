@@ -1,3 +1,7 @@
 logging:
   pattern:
     console:
+
+transactions:
+  path: data/
+  file: transactions.txt

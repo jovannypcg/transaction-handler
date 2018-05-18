@@ -25,13 +25,14 @@ public class TransactionArgumentValidator {
      */
     public static final int MAXIMUM_ARGS_SIZE = 3;
 
-    public static final int ADD_TASK_ARGS_SIZE = 3;
-    public static final int SHOW_TASK_ARGS_SIZE = 2;
-    public static final int LIST_TASK_ARGS_SIZE = 2;
-    public static final int SUM_TASK_ARGS_SIZE = 2;
+    private static final int ADD_TASK_ARGS_SIZE = 3;
+    private static final int SHOW_TASK_ARGS_SIZE = 2;
+    private static final int LIST_TASK_ARGS_SIZE = 2;
+    private static final int SUM_TASK_ARGS_SIZE = 2;
 
-    public static final int TASK_INDEX_IN_ARGS = 1;
-    public static final int TRANSACTION_JSON_INDEX_IN_ARGS = 2;
+    public static final int USER_ID_INDEX_IN_ARGS = 0;
+    private static final int TASK_INDEX_IN_ARGS = 1;
+    private static final int TRANSACTION_JSON_INDEX_IN_ARGS = 2;
 
     public static final String ADD_TASK = "add";
     public static final String LIST_TASK = "list";
