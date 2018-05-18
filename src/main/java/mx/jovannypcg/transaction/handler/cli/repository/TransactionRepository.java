@@ -9,4 +9,5 @@ public interface TransactionRepository<T extends Transaction> {
     List<T> findAll();
     List<T> findByUserId(int userId);
     List<T> findByUserIdAndTransactionId(int userId, String transactionId);
+    double sumAmountsByUserId(int userId);
 }

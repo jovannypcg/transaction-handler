@@ -1,11 +1,15 @@
 package mx.jovannypcg.transaction.handler.cli.command.impl;
 
 import mx.jovannypcg.transaction.handler.cli.command.Command;
+import mx.jovannypcg.transaction.handler.cli.domain.AmountsSum;
 import mx.jovannypcg.transaction.handler.cli.domain.Transaction;
 import mx.jovannypcg.transaction.handler.cli.repository.TransactionRepository;
 import mx.jovannypcg.transaction.handler.cli.validator.TransactionArgumentValidator;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.util.ArrayUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class TransactionCommand implements Command {
@@ -28,11 +32,14 @@ public class TransactionCommand implements Command {
 
             list(userId);
         } else if (validator.isSumTask()) {
-            System.out.println("Executing sum...");
+            int userId = Integer.valueOf(args[TransactionArgumentValidator.USER_ID_INDEX_IN_ARGS]);
+
+            sum(userId);
         } else if(validator.isShowTask()) {
-            System.out.println(args[0]);
-            System.out.println(args[1]);
-            System.out.println("Executing show...");
+            int userId = Integer.valueOf(args[TransactionArgumentValidator.USER_ID_INDEX_IN_ARGS]);
+            String transactionId = args[TransactionArgumentValidator.TRANSACTION_ID_INDEX_IN_ARGS];
+
+            show(userId, transactionId);
         } else if (validator.isAddTask()) {
             add(args);
         } else {
@@ -43,7 +50,7 @@ public class TransactionCommand implements Command {
 
     private void add(String[] args) {
         Transaction transaction = new Transaction();
-        transaction.setAmount(3.2);
+        transaction.setAmount(3.2f);
         transaction.setDate("18/05/2018");
         transaction.setUserId(235);
         transaction.setDescription("Simple transaction to be saved");
@@ -58,5 +65,15 @@ public class TransactionCommand implements Command {
 
     private void listAll() {
         transactionRepository.findAll().forEach(System.out::println);
+    }
+
+    private void show(int userId, String transactionId) {
+        transactionRepository.findByUserIdAndTransactionId(userId, transactionId).forEach(System.out::println);
+    }
+
+    private void sum(int userId) {
+        double sum = transactionRepository.sumAmountsByUserId(userId);
+
+        System.out.println(new AmountsSum(userId, sum));
     }
 }

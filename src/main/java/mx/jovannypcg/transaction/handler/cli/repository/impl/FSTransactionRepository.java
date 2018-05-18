@@ -9,7 +9,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -68,5 +70,13 @@ public class FSTransactionRepository implements TransactionRepository<Transactio
                     return transaction.getUserId() == userId && transactionId.equals(transaction.getTransactionId());
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public double sumAmountsByUserId(int userId) {
+        return findByUserId(userId)
+                .stream()
+                .mapToDouble(Transaction::getAmount)
+                .sum();
     }
 }
