@@ -1,9 +1,11 @@
 package mx.jovannypcg.transaction.handler.cli.exception;
 
+import mx.jovannypcg.transaction.handler.cli.validator.TransactionArgumentValidator;
+
 /**
  * Meant to be thrown when the list of arguments passed to
  * {@link mx.jovannypcg.transaction.handler.cli.TransactionHandlerCLI} is not valid
- * based on {@link mx.jovannypcg.transaction.handler.cli.validator.ArgumentValidator}
+ * based on {@link TransactionArgumentValidator}
  *
  * @author Jovanny Cruz
  */
