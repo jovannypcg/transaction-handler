@@ -25,5 +25,7 @@ repositories {
 
 dependencies {
     compile('org.springframework.boot:spring-boot-starter')
+    compile('com.google.code.gson:gson:2.8.4')
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

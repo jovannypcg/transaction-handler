@@ -1,5 +1,8 @@
 package mx.jovannypcg.transaction.handler.cli.validator;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+
 /**
  * Class to validate the arguments passed to {@link mx.jovannypcg.transaction.handler.cli.TransactionHandlerCLI}.
  *
@@ -21,7 +24,30 @@ public class ArgumentValidator {
      */
     private static final int MAXIMUM_ARGS_SIZE = 3;
 
+    /**
+     * Verifies if the given <em>args</em> has a length between <em>MINIMUM_ARGS_SIZE</em>
+     * and <em>MAXIMUM_ARGS_SIZE</em>.
+     *
+     * @param args Array to verify.
+     * @return true if the length of <em>args</em> is the expected, false otherwise.
+     */
     public static boolean argumentListSizeIsValid(String... args) {
         return args.length >= MINIMUM_ARGS_SIZE && args.length <= MAXIMUM_ARGS_SIZE;
+    }
+
+    /**
+     * Verifies is the String is a valid JSON object.
+     *
+     * @param json String representing a JSON object.
+     * @return true if the given <em>json</em> is a valid JSON object, false otherwise.
+     */
+    public static boolean isValidJson(String json) {
+        try {
+            new Gson().fromJson(json, Object.class);
+        } catch (JsonSyntaxException e) {
+            return false;
+        }
+
+        return true;
     }
 }
