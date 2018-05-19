@@ -2,26 +2,22 @@ package mx.jovannypcg.transaction.handler.cli.repository.impl;
 
 import com.google.gson.Gson;
 import mx.jovannypcg.transaction.handler.cli.domain.Transaction;
-import mx.jovannypcg.transaction.handler.cli.repository.TransactionRepository;
+import mx.jovannypcg.transaction.handler.cli.repository.CommandRepository;
 import org.springframework.stereotype.Repository;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Repository
-public class FSTransactionRepository implements TransactionRepository<Transaction> {
+public class FSCommandRepository implements CommandRepository<Transaction> {
     private Gson gson;
     private PrintWriter transactionWriter;
     private BufferedReader transactionReader;
 
-    public FSTransactionRepository(Gson gson, PrintWriter transactionWriter, BufferedReader transactionReader) {
+    public FSCommandRepository(Gson gson, PrintWriter transactionWriter, BufferedReader transactionReader) {
         this.gson = gson;
         this.transactionWriter = transactionWriter;
         this.transactionReader = transactionReader;
@@ -39,19 +35,10 @@ public class FSTransactionRepository implements TransactionRepository<Transactio
 
     @Override
     public List<Transaction> findAll() {
-        List<Transaction> transactions = new ArrayList<>();
-        String currentTransactionString;
-
-        try {
-            while ((currentTransactionString = transactionReader.readLine()) != null) {
-                Transaction currentTransaction = gson.fromJson(currentTransactionString, Transaction.class);
-                transactions.add(currentTransaction);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return transactions;
+        return transactionReader
+                .lines()
+                .map(transactionLine -> gson.fromJson(transactionLine, Transaction.class))
+                .collect(Collectors.toList());
     }
 
     @Override

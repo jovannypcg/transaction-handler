@@ -29,3 +29,7 @@ dependencies {
 
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
+
+test {
+    environment SPRING_PROFILES_ACTIVE: 'test'
+}

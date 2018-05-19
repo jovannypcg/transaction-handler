@@ -2,6 +2,8 @@ package mx.jovannypcg.transaction.handler.cli.domain;
 
 import com.google.gson.Gson;
 
+import java.util.Objects;
+
 public class Transaction {
     private int userId;
     private String date;
@@ -47,6 +49,30 @@ public class Transaction {
 
     public void setTransactionId(String transactionId) {
         this.transactionId = transactionId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Transaction)) {
+            return false;
+        }
+
+        Transaction that = (Transaction) obj;
+
+        return Objects.equals(date, that.date) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(transactionId, that.transactionId) &&
+                userId == that.userId &&
+                amount == that.amount;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, date, description, amount, transactionId);
     }
 
     @Override

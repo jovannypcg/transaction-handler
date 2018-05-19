@@ -1,0 +1,3 @@
+{"userId":235,"date":"19/05/2018","description":"Simple transaction to be saved","amount":25.13,"transactionId":"5ee3052c-3a22-4d5a-bb68-a5d5b7cef443"}
+{"userId":154,"date":"24/04/2014","description":"Simple transaction to be saved","amount":43.53,"transactionId":"07f791c0-4cd9-47cf-86de-62dc9aa481e8"}
+{"userId":235,"date":"12/01/2017","description":"Simple transaction to be saved","amount":145.5,"transactionId":"69627e72-c19f-46e9-8c3d-39afdc3d77b9"}

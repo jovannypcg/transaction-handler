@@ -1,0 +1,3 @@
+transactions:
+  path: src/test/resources/
+  file: transactions.txt

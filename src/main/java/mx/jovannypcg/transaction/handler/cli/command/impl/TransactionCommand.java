@@ -3,20 +3,16 @@ package mx.jovannypcg.transaction.handler.cli.command.impl;
 import mx.jovannypcg.transaction.handler.cli.command.Command;
 import mx.jovannypcg.transaction.handler.cli.domain.AmountsSum;
 import mx.jovannypcg.transaction.handler.cli.domain.Transaction;
-import mx.jovannypcg.transaction.handler.cli.repository.TransactionRepository;
+import mx.jovannypcg.transaction.handler.cli.repository.CommandRepository;
 import mx.jovannypcg.transaction.handler.cli.validator.TransactionArgumentValidator;
 import org.springframework.stereotype.Component;
-import org.yaml.snakeyaml.util.ArrayUtils;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class TransactionCommand implements Command {
-    private TransactionRepository<Transaction> transactionRepository;
+    private CommandRepository<Transaction> commandRepository;
 
-    public TransactionCommand(TransactionRepository<Transaction> transactionRepository) {
-        this.transactionRepository = transactionRepository;
+    public TransactionCommand(CommandRepository<Transaction> commandRepository) {
+        this.commandRepository = commandRepository;
     }
 
     @Override
@@ -48,31 +44,31 @@ public class TransactionCommand implements Command {
         }
     }
 
-    private void add(String[] args) {
+    protected void add(String[] args) {
         Transaction transaction = new Transaction();
         transaction.setAmount(3.2f);
         transaction.setDate("18/05/2018");
         transaction.setUserId(235);
         transaction.setDescription("Simple transaction to be saved");
 
-        Transaction t = transactionRepository.save(transaction);
+        Transaction t = commandRepository.save(transaction);
         System.out.println(t);
     }
 
-    private void list(int userId) {
-        transactionRepository.findByUserId(userId).forEach(System.out::println);
+    protected void list(int userId) {
+        commandRepository.findByUserId(userId).forEach(System.out::println);
     }
 
-    private void listAll() {
-        transactionRepository.findAll().forEach(System.out::println);
+    protected void listAll() {
+        commandRepository.findAll().forEach(System.out::println);
     }
 
-    private void show(int userId, String transactionId) {
-        transactionRepository.findByUserIdAndTransactionId(userId, transactionId).forEach(System.out::println);
+    protected void show(int userId, String transactionId) {
+        commandRepository.findByUserIdAndTransactionId(userId, transactionId).forEach(System.out::println);
     }
 
-    private void sum(int userId) {
-        double sum = transactionRepository.sumAmountsByUserId(userId);
+    protected void sum(int userId) {
+        double sum = commandRepository.sumAmountsByUserId(userId);
 
         System.out.println(new AmountsSum(userId, sum));
     }
