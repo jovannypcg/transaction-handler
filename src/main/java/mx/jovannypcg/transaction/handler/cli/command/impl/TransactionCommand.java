@@ -1,5 +1,6 @@
 package mx.jovannypcg.transaction.handler.cli.command.impl;
 
+import com.google.gson.Gson;
 import mx.jovannypcg.transaction.handler.cli.command.Command;
 import mx.jovannypcg.transaction.handler.cli.domain.AmountsSum;
 import mx.jovannypcg.transaction.handler.cli.domain.Transaction;
@@ -10,9 +11,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class TransactionCommand implements Command {
     private CommandRepository<Transaction> commandRepository;
+    private Gson gson;
 
-    public TransactionCommand(CommandRepository<Transaction> commandRepository) {
+    public TransactionCommand(CommandRepository<Transaction> commandRepository, Gson gson) {
         this.commandRepository = commandRepository;
+        this.gson = gson;
     }
 
     @Override
@@ -37,19 +40,19 @@ public class TransactionCommand implements Command {
 
             show(userId, transactionId);
         } else if (validator.isAddTask()) {
-            add(args);
+            int userId = Integer.valueOf(args[TransactionArgumentValidator.USER_ID_INDEX_IN_ARGS]);
+            String json = args[TransactionArgumentValidator.TRANSACTION_JSON_INDEX_IN_ARGS];
+
+            add(userId, json);
         } else {
             System.out.println("Usage: java -jar transaction-handler.jar <user_id> " +
                     "[transaction_id] [sum] [list] [add <transaction_json>]");
         }
     }
 
-    protected void add(String[] args) {
-        Transaction transaction = new Transaction();
-        transaction.setAmount(3.2f);
-        transaction.setDate("18/05/2018");
-        transaction.setUserId(235);
-        transaction.setDescription("Simple transaction to be saved");
+    protected void add(int userId, String json) {
+        Transaction transaction = gson.fromJson(json, Transaction.class);
+        transaction.setUserId(userId);
 
         Transaction t = commandRepository.save(transaction);
         System.out.println(t);

@@ -33,7 +33,7 @@ public class TransactionArgumentValidator {
     public static final int USER_ID_INDEX_IN_ARGS = 0;
     public static final int TRANSACTION_ID_INDEX_IN_ARGS = 1;
     private static final int TASK_INDEX_IN_ARGS = 1;
-    private static final int TRANSACTION_JSON_INDEX_IN_ARGS = 2;
+    public static final int TRANSACTION_JSON_INDEX_IN_ARGS = 2;
 
     public static final String ADD_TASK = "add";
     public static final String LIST_TASK = "list";
