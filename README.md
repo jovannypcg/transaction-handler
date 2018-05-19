@@ -30,7 +30,7 @@ sdk install java 8u151-oracle
 export JAVA_HOME=~/.sdkman/candidates/java/current
 ```
 
-### Building and Executing the CLI
+### Building and Executing the CLI
 
 1. Clone the repository
 
@@ -52,7 +52,7 @@ export JAVA_HOME=~/.sdkman/candidates/java/current
    $ java -jar build/libs/transaction-handler-1.0.0.jar 154 list
    ```
 
-### Testing
+### Testing
 
 Tests are executed when running the `build` task, but they can be independently run by typing
 
